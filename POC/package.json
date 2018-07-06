@@ -1,0 +1,30 @@
+{
+  "name": "pipe-cli-poc",
+  "version": "1.0.0",
+  "description": "Pipe CLI to send files and receive files from command line",
+  "main": "pipe.js",
+  "scripts": {
+    "test": "pipe help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonalsavaratkar/pipe.git"
+  },
+  "keywords": [
+    "pipe",
+    "file",
+    "transfer",
+    "cli"
+  ],
+  "author": "Sonal Savaratkar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonalsavaratkar/pipe/issues"
+  },
+  "homepage": "https://github.com/sonalsavaratkar/pipe#readme",
+  "dependencies": {
+    "file-exists": "^5.0.1",
+    "request": "^2.87.0",
+    "uuid": "^3.2.1"
+  }
+}

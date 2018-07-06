@@ -1,0 +1,33 @@
+{
+  "name": "pipe-server",
+  "version": "1.0.0",
+  "description": "Pipe server a gateway for the file transfer",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "tsc && node dist/index.js",
+    "dev": "nodemon dist/index.js --watch dist"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/body-parser": "^1.16.3",
+    "@types/cookie-parser": "^1.3.30",
+    "@types/cors": "^2.8.0",
+    "@types/express": "^4.0.36",
+    "@types/node": "^8.0.0",
+    "@types/uuid": "^3.4.3",
+    "nodemon": "^1.11.0",
+    "tslint": "^5.4.3",
+    "typescript": "^2.4.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "es6-promise": "^4.2.4",
+    "express": "^4.14.1",
+    "uuid": "^3.2.1"
+  }
+}
