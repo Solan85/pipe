@@ -1,23 +1,17 @@
-// import { Stream } from "stream";
 import * as stream from 'stream';
 import * as fs from 'fs';
-
-// const Readable = require('stream').Readable;
-// var util = require('util');
-// var fs = require('fs');
+import { Promise } from 'es6-promise';
 
 export class FileChunkReader extends stream.Readable {
     counter: number;
     chunkFolder: string;
     endFileId: string;
-
+    MAX_ATTEMPT = 100;
     constructor(chunkFolder: string, endFileId: string) {
         super();
-        // Readable.call(this);
         this.counter = 0;
         this.chunkFolder = chunkFolder;
         this.endFileId = endFileId;
-        // util.inherits(FileChunkReader, Readable);
     }
 
     _read() {
@@ -25,47 +19,46 @@ export class FileChunkReader extends stream.Readable {
         var filePath = this.chunkFolder + i + '.tmp'
 
         try {
-            console.log('reading file... ' + filePath);
-            var data = fs.readFileSync(filePath);
-            if (data.toString() !== this.endFileId) {
-                this.push(data);
-                fs.unlinkSync(filePath);
-            } else {
-                this.push(null);
-                console.log('end of file');
-                fs.unlinkSync(filePath);
-                fs.rmdirSync(this.chunkFolder);
-            }
+            // console.log('reading file... ' + filePath);
+            // var data = fs.readFileSync(filePath);
+            this.readChunkFile(filePath).then((data:any)=>{
+                if (data.toString() !== this.endFileId) {
+                    this.push(data);
+                    fs.unlinkSync(filePath);
+                } else {
+                    this.push(null);
+                    console.log('end of file');
+                    fs.unlinkSync(filePath);
+                    fs.rmdirSync(this.chunkFolder);
+                }
+            }).catch((error)=>{
+                console.log(error);
+                console.log('chunk file reading error');
+            });
         } catch (error) {
             console.log(error);
             console.log('my error');
         }
     }
+
+    readChunkFile(filePath: string, attempt: number = 0) {
+        return new Promise((resolve: any, reject: any) => {
+            try {
+                let data = fs.readFileSync(filePath);
+                resolve(data);
+            } catch (error) {
+                if (attempt === this.MAX_ATTEMPT) {
+                    reject(new Error('MAX ATTEMPT fail to read chunk'));
+                }
+                setTimeout(() => {
+                    this.readChunkFile(filePath, +attempt).then((data) => {
+                        resolve(data);
+                    }).catch((error) => {
+                        reject(error);
+                    });
+
+                }, 1000);
+            }
+        });
+    }
 }
-
-// function FileChunkReader(chunkFolder, endFileId) {
-//     Readable.call(this);
-//     this.counter = 0;
-//     this.chunkFolder = chunkFolder;
-//     this.endFileId = endFileId;
-// }
-// util.inherits(FileChunkReader, Readable);
-
-// FileChunkReader.prototype._read = function () {
-//     var i = ++this.counter;
-//     var filePath = this.chunkFolder + i + '.tmp'
-
-//     try {
-//         console.log('reading file... ' + filePath);
-//         var data = fs.readFileSync(filePath);
-//         if (data.toString() !== '123-123-123') {
-//             this.push(data);
-//         } else {
-//             console.log('end of file');
-//             this.push(null);
-//         }
-//         fs.unlinkSync(filePath);
-//     } catch (error) {
-//         console.log('my error');
-//     }
-// };
