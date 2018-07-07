@@ -19,11 +19,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 // app.use(mainRoutes);
 
-let server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`App is running at http://localhost:${PORT}`);
 });
 
-server.timeout = 3600000;
+// server.timeout = 3600000;
 
 app.get('/', function (req, res) {
   console.log(process.argv);

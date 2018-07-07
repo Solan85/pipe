@@ -26,6 +26,7 @@ function registerPipe(pipeObj) {
             return console.log(err);
         }
         console.log("pipe created: " + pipeObj.name);
+        // console.log("To fetch file: ")
     });
 }
 
