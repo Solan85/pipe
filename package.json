@@ -1,0 +1,24 @@
+{
+  "name": "pipe-io",
+  "version": "1.0.0",
+  "description": "pipe-io creates time limited pipe to transfer files across machines.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonalsavaratkar/pipe.git"
+  },
+  "keywords": [
+    "pipe",
+    "cli",
+    "file",
+    "transfer"
+  ],
+  "author": "Sonal Savaratkar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/savaratkar/pipe/issues"
+  },
+  "homepage": "https://github.com/savaratkar/pipe#readme"
+}
