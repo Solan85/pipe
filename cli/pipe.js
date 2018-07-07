@@ -5,9 +5,9 @@ console.log(process.argv);
 switch (process.argv[2].toUpperCase()) {
     case "CREATE":
         var file = process.argv[3];
-        //if (validateFile(file)) {
+        if (validateFile(file)) {
             pipeManager.createPipe(file);
-        //}
+        }
         break;
 }
 
