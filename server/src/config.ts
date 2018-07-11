@@ -6,7 +6,7 @@ export class Config {
         if(inDebugMode) {
             this.tempFolder = './server/src/temp/';
         } else {
-            this.tempFolder = './src/temp/';            
+            this.tempFolder = './temp/';            
         }
 
     }

@@ -60,11 +60,7 @@ typings/
 # next.js build output
 .next
 
-/POC/temp/*.*
-/POC/store/*.*
 /**/db/*.*
-
-/**/store/*.*
 /**/temp/*.*
 
 **/.vscode

@@ -3,7 +3,7 @@ var fs = require('fs');
 const fileExists = require('file-exists');
 
 if(!fs.existsSync('./db')) {
-    fs.mkdirSync('./db')
+    fs.mkdirSync('./db');
 }
 
 switch (process.argv[2].toUpperCase()) {

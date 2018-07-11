@@ -8,11 +8,18 @@ import * as Config from './config';
 import * as Util from './util';
 import { PipeConnector } from './pipeConnector';
 
+
 const PORT = 8080;
 const app = express();
 const config = new Config.Config();
 const util = new Util.Util();
 const pipeConnector = new PipeConnector();
+
+// create temp folder
+if(!fs.existsSync(config.tempFolder)) {
+  fs.mkdirSync(config.tempFolder);
+  console.log('"' + config.tempFolder + '" folder created...');
+}
 
 app.use(cors());
 app.use(cookieParser());
