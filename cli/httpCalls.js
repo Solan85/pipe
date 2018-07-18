@@ -52,10 +52,12 @@ function processQueue(pipeInRequestId, pipeObj) {
     var options = {
         headers: {
             'Content-Disposition': 'attachment;filename=' + pipeObj.file,
-            'Content-type': 'application/octet-stream'
+            'Content-type': 'application/octet-stream',
+            'Content-size': parseInt(fs.statSync(pipeObj.file).size)
         }
     };
 
+    console.log(options);
     try {
         fs.createReadStream(pipeObj.file)
             .pipe(request.post(fileUploadUrl, options).on('end',function(response){

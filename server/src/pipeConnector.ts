@@ -7,10 +7,11 @@ const config = new Config.Config();
 
 
 export class PipeConnector {
-    pipeOutToTemp(fileName: string, pipeInId: string, request: any, response:any) {
+    pipeOutToTemp(fileName: string, size: string, pipeInId: string, request: any, response: any) {
         var counter = 0;
         var data = {
-            fileName: fileName
+            fileName: fileName,
+            size: parseInt(size)
         };
         var folder = config.tempFolder + pipeInId + '/';
         fs.writeFileSync(folder + '0.json', JSON.stringify(data));
@@ -27,7 +28,7 @@ export class PipeConnector {
                 var path = folder + counter + '.tmp';
                 fs.writeFileSync(path, pipeInId);
                 //TODO: remove following log
-                if(response == undefined) {
+                if (response == undefined) {
                     console.log('PipeOut response is undefined');
                 }
 
@@ -57,10 +58,11 @@ export class PipeConnector {
             }
             try {
                 let metadataFilePath = pipeInTempFolder + '0.json';
-                let metadata = fs.readFileSync(metadataFilePath);
-                let fileName = JSON.parse(metadata.toString()).fileName;
+                let metadataString = fs.readFileSync(metadataFilePath);
+                let metadata = JSON.parse(metadataString.toString());
                 response.setHeader('Content-Type', 'application/octet-stream');
-                response.setHeader('Content-Disposition', 'attachment; filename="' + fileName + '"');
+                response.setHeader('Content-Disposition', 'attachment; filename="' + metadata.fileName + '"');
+                response.setHeader('Content-Size', parseInt(metadata.size));
                 fs.unlinkSync(metadataFilePath);
                 resolve();
             } catch (error) {
