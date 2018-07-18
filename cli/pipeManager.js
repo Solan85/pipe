@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 // var DB_FOLDER = './db/';
 var httpCalls = require('./httpCalls');
 var config = require('./config.json');
@@ -9,10 +10,12 @@ function createPipe(file) {
     // store in database
     // file, expiry time, pipe name
     var pipeName = uuidv4();
+    var fileName = path.basename(file);
     var pipeObj = {
         name: pipeName,
         expiry: (new Date).getTime() + (5 * 60 * 1000),
-        file: file
+        file: file,
+        fileName: fileName
     };
 
     registerPipe(pipeObj);

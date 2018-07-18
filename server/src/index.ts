@@ -71,7 +71,7 @@ app.post('/pipeout', function (req: express.Request, res: express.Response) {
     }
   }
 
-  let size = req.headers['content-size'] as string;
+  let size = req.headers['content-length'] as string;
   let pipeInId = req.query.pipeInId;
   pipeConnector.pipeOutToTemp(fileName, size, pipeInId, req, res);
 });

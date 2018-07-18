@@ -48,12 +48,13 @@ function pollRequest(pipeObj) {
 }
 
 function processQueue(pipeInRequestId, pipeObj) {
+    console.log("filename: " + pipeObj.file);
     var fileUploadUrl = config.server + '/pipeout?pipename=' + pipeObj.name + '&pipeInId=' + pipeInRequestId;
     var options = {
         headers: {
-            'Content-Disposition': 'attachment;filename=' + pipeObj.file,
+            'Content-Disposition': 'attachment;filename=' + pipeObj.fileName,
             'Content-type': 'application/octet-stream',
-            'Content-size': parseInt(fs.statSync(pipeObj.file).size)
+            'Content-length': parseInt(fs.statSync(pipeObj.file).size)
         }
     };
 

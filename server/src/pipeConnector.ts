@@ -60,9 +60,10 @@ export class PipeConnector {
                 let metadataFilePath = pipeInTempFolder + '0.json';
                 let metadataString = fs.readFileSync(metadataFilePath);
                 let metadata = JSON.parse(metadataString.toString());
-                response.setHeader('Content-Type', 'application/octet-stream');
-                response.setHeader('Content-Disposition', 'attachment; filename="' + metadata.fileName + '"');
-                response.setHeader('Content-Size', parseInt(metadata.size));
+                response.setHeader('content-type', 'application/octet-stream');
+                response.setHeader('content-disposition', 'attachment; filename="' + metadata.fileName + '"');
+                response.setHeader('content-length', parseInt(metadata.size));
+                console.log("filename: " + metadata.fileName)
                 fs.unlinkSync(metadataFilePath);
                 resolve();
             } catch (error) {
